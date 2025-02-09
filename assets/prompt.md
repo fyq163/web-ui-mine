@@ -8,6 +8,7 @@
 - requires no more than 3 years experiences, "3+" and more just disregard
 - job location Hong Kong, 
 - 最好要求至少是毕业生 graduate, or trainee
+- location in Hong Kong or Shenzhen("深圳")
 
 ### Disregard Jobs (dislike, not good)
 - hong kong permanent resident only, if you see this, just close page
@@ -30,7 +31,7 @@
 #### Account Info
 - username: seb.fan@outlook.com.au
 
-#### Job Search
+#### Hint
 - job_keywords: data
 - search_button: #seek
 - hint: 
@@ -46,10 +47,14 @@
 
 ### efinancialcareers
 #### url: https://www.efinancialcareers.hk/
-#### Hint
-- press sing in
-
-- scroll left column to load more jobs
+#### steps
+- press sign in, if not shown button, skip this step
+- scroll left column to load more jobs, click in, open the job posting to justify if the job meets requirements
+- close page after view
 
 #### Account Info
 - username: fan.yuqi@icloud.com
+### 
+#### url: 
+#### steps
+1. choose "Working Location", first click "广东", then there will be new option, click"深圳"
