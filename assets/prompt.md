@@ -9,7 +9,7 @@
 - job location Hong Kong, 
 - 最好要求至少是毕业生 graduate, or trainee
 
-### Disregard Jobs
+### Disregard Jobs (dislike, not good)
 - hong kong permanent resident only, if you see this, just close page
 - cantonese is a must or Korean
 - 职位技能需求包含 Java、C# 或 Fortran
@@ -35,6 +35,9 @@
 - hint: 
 
 ### www.linkedin.com/jobs/collections/financial-services
+#### Steps
+1. you are already logged in, and already in the job listing page, so your task is to look and save jobs
+2. - try to press "show all","see more" or "see all" to load more jobs
 #### Hint
 - for this website, just scroll down and look for jobs and just click save button
 - this website use javascript to load more jobs, so you need to scroll down and click job title at left column to load more jobs
@@ -42,7 +45,7 @@
 ### https://www.efinancialcareers.hk/
 #### Hint
 - press sing in
-- try to press "show all","see more" or "see all" to load more jobs
+
 - scroll left column to load more jobs
 
 #### Account Info
