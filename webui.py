@@ -32,9 +32,9 @@ from src.agent.custom_prompts import CustomSystemPrompt, CustomAgentMessagePromp
 from src.browser.custom_context import BrowserContextConfig, CustomBrowserContext
 from src.controller.custom_controller import CustomController
 from gradio.themes import Citrus, Default, Glass, Monochrome, Ocean, Origin, Soft, Base
-from src.utils.default_config_settings import default_config, load_config_from_file, save_config_to_file, save_current_config, update_ui_from_config
+from src.utils.default_config_settings import default_config, load_config_from_file, save_config_to_file, \
+    save_current_config, update_ui_from_config
 from src.utils.utils import update_model_dropdown, get_latest_files, capture_screenshot
-
 
 # Global variables for persistence
 _global_browser = None
@@ -42,6 +42,7 @@ _global_browser_context = None
 
 # Create the global agent state instance
 _global_agent_state = AgentState()
+
 
 async def stop_agent():
     """Request the agent to stop and update UI with enhanced feedback"""
@@ -57,9 +58,9 @@ async def stop_agent():
 
         # Return UI updates
         return (
-            message,                                        # errors_output
+            message,  # errors_output
             gr.update(value="Stopping...", interactive=False),  # stop_button
-            gr.update(interactive=False),                      # run_button
+            gr.update(interactive=False),  # run_button
         )
     except Exception as e:
         error_msg = f"Error during stop: {str(e)}"
@@ -69,7 +70,8 @@ async def stop_agent():
             gr.update(value="Stop", interactive=True),
             gr.update(interactive=True)
         )
-        
+
+
 async def stop_research_agent():
     """Request the agent to stop and update UI with enhanced feedback"""
     global _global_agent_state, _global_browser_context, _global_browser
@@ -83,9 +85,9 @@ async def stop_research_agent():
         logger.info(f"🛑 {message}")
 
         # Return UI updates
-        return (                                   # errors_output
+        return (  # errors_output
             gr.update(value="Stopping...", interactive=False),  # stop_button
-            gr.update(interactive=False),                      # run_button
+            gr.update(interactive=False),  # run_button
         )
     except Exception as e:
         error_msg = f"Error during stop: {str(e)}"
@@ -94,6 +96,7 @@ async def stop_research_agent():
             gr.update(value="Stop", interactive=True),
             gr.update(interactive=True)
         )
+
 
 async def run_browser_agent(
         agent_type,
@@ -206,7 +209,7 @@ async def run_browser_agent(
             trace_file,
             history_file,
             gr.update(value="Stop", interactive=True),  # Re-enable stop button
-            gr.update(interactive=True)    # Re-enable run button
+            gr.update(interactive=True)  # Re-enable run button
         )
 
     except gr.Error:
@@ -217,15 +220,15 @@ async def run_browser_agent(
         traceback.print_exc()
         errors = str(e) + "\n" + traceback.format_exc()
         return (
-            '',                                         # final_result
-            errors,                                     # errors
-            '',                                         # model_actions
-            '',                                         # model_thoughts
-            None,                                       # latest_video
-            None,                                       # history_file
-            None,                                       # trace_file
+            '',  # final_result
+            errors,  # errors
+            '',  # model_actions
+            '',  # model_thoughts
+            None,  # latest_video
+            None,  # history_file
+            None,  # trace_file
             gr.update(value="Stop", interactive=True),  # Re-enable stop button
-            gr.update(interactive=True)    # Re-enable run button
+            gr.update(interactive=True)  # Re-enable run button
         )
 
 
@@ -248,7 +251,7 @@ async def run_org_agent(
 ):
     try:
         global _global_browser, _global_browser_context, _global_agent_state
-        
+
         # Clear any previous stop request
         _global_agent_state.clear_stop()
 
@@ -262,7 +265,7 @@ async def run_org_agent(
                 extra_chromium_args += [f"--user-data-dir={chrome_user_data}"]
         else:
             chrome_path = None
-            
+
         if _global_browser is None:
             _global_browser = Browser(
                 config=BrowserConfig(
@@ -284,7 +287,7 @@ async def run_org_agent(
                     ),
                 )
             )
-            
+
         agent = Agent(
             task=task,
             llm=llm,
@@ -322,6 +325,7 @@ async def run_org_agent(
             if _global_browser:
                 await _global_browser.close()
                 _global_browser = None
+
 
 async def run_custom_agent(
         llm,
@@ -382,7 +386,7 @@ async def run_custom_agent(
                     ),
                 )
             )
-            
+
         # Create and run agent
         agent = CustomAgent(
             task=task,
@@ -408,7 +412,7 @@ async def run_custom_agent(
         model_actions = history.model_actions()
         model_thoughts = history.model_thoughts()
 
-        trace_file = get_latest_files(save_trace_path)        
+        trace_file = get_latest_files(save_trace_path)
 
         return final_result, errors, model_actions, model_thoughts, trace_file.get('.zip'), history_file
     except Exception as e:
@@ -427,29 +431,30 @@ async def run_custom_agent(
                 await _global_browser.close()
                 _global_browser = None
 
+
 async def run_with_stream(
-    agent_type,
-    llm_provider,
-    llm_model_name,
-    llm_temperature,
-    llm_base_url,
-    llm_api_key,
-    use_own_browser,
-    keep_browser_open,
-    headless,
-    disable_security,
-    window_w,
-    window_h,
-    save_recording_path,
-    save_agent_history_path,
-    save_trace_path,
-    enable_recording,
-    task,
-    add_infos,
-    max_steps,
-    use_vision,
-    max_actions_per_step,
-    tool_calling_method
+        agent_type,
+        llm_provider,
+        llm_model_name,
+        llm_temperature,
+        llm_base_url,
+        llm_api_key,
+        use_own_browser,
+        keep_browser_open,
+        headless,
+        disable_security,
+        window_w,
+        window_h,
+        save_recording_path,
+        save_agent_history_path,
+        save_trace_path,
+        enable_recording,
+        task,
+        add_infos,
+        max_steps,
+        use_vision,
+        max_actions_per_step,
+        tool_calling_method
 ):
     global _global_agent_state
     stream_vw = 80
@@ -517,7 +522,6 @@ async def run_with_stream(
             html_content = f"<h1 style='width:{stream_vw}vw; height:{stream_vh}vh'>Using browser...</h1>"
             final_result = errors = model_actions = model_thoughts = ""
             latest_videos = trace = history_file = None
-
 
             # Periodically update the stream while the agent task is running
             while not agent_task.done():
@@ -597,8 +601,9 @@ async def run_with_stream(
                 None,
                 None,
                 gr.update(value="Stop", interactive=True),  # Re-enable stop button
-                gr.update(interactive=True)    # Re-enable run button
+                gr.update(interactive=True)  # Re-enable run button
             ]
+
 
 # Define the theme map globally
 theme_map = {
@@ -612,6 +617,7 @@ theme_map = {
     "Base": Base()
 }
 
+
 async def close_global_browser():
     global _global_browser, _global_browser_context
 
@@ -622,31 +628,34 @@ async def close_global_browser():
     if _global_browser:
         await _global_browser.close()
         _global_browser = None
-        
-async def run_deep_search(research_task, max_search_iteration_input, max_query_per_iter_input, llm_provider, llm_model_name, llm_temperature, llm_base_url, llm_api_key, use_vision, use_own_browser, headless):
+
+
+async def run_deep_search(research_task, max_search_iteration_input, max_query_per_iter_input, llm_provider,
+                          llm_model_name, llm_temperature, llm_base_url, llm_api_key, use_vision, use_own_browser,
+                          headless):
     from src.utils.deep_research import deep_research
     global _global_agent_state
 
     # Clear any previous stop request
     _global_agent_state.clear_stop()
-    
+
     llm = utils.get_llm_model(
-            provider=llm_provider,
-            model_name=llm_model_name,
-            temperature=llm_temperature,
-            base_url=llm_base_url,
-            api_key=llm_api_key,
-        )
+        provider=llm_provider,
+        model_name=llm_model_name,
+        temperature=llm_temperature,
+        base_url=llm_base_url,
+        api_key=llm_api_key,
+    )
     markdown_content, file_path = await deep_research(research_task, llm, _global_agent_state,
-                                                        max_search_iterations=max_search_iteration_input,
-                                                        max_query_num=max_query_per_iter_input,
-                                                        use_vision=use_vision,
-                                                        headless=headless,
-                                                        use_own_browser=use_own_browser
-                                                        )
-    
-    return markdown_content, file_path, gr.update(value="Stop", interactive=True),  gr.update(interactive=True) 
-    
+                                                      max_search_iterations=max_search_iteration_input,
+                                                      max_query_num=max_query_per_iter_input,
+                                                      use_vision=use_vision,
+                                                      headless=headless,
+                                                      use_own_browser=use_own_browser
+                                                      )
+
+    return markdown_content, file_path, gr.update(value="Stop", interactive=True), gr.update(interactive=True)
+
 
 def create_ui(config, theme_name="Ocean"):
     css = """
@@ -723,7 +732,7 @@ def create_ui(config, theme_name="Ocean"):
             with gr.TabItem("🔧 LLM Configuration", id=2):
                 with gr.Group():
                     llm_provider = gr.Dropdown(
-                        choices=[provider for provider,model in utils.model_names.items()],
+                        choices=[provider for provider, model in utils.model_names.items()],
                         label="LLM Provider",
                         value=config['llm_provider'],
                         info="Select your preferred language model provider"
@@ -840,28 +849,29 @@ def create_ui(config, theme_name="Ocean"):
                 with gr.Row():
                     run_button = gr.Button("▶️ Run Agent", variant="primary", scale=2)
                     stop_button = gr.Button("⏹️ Stop", variant="stop", scale=1)
-                    
+
                 with gr.Row():
                     browser_view = gr.HTML(
                         value="<h1 style='width:80vw; height:50vh'>Waiting for browser session...</h1>",
                         label="Live Browser View",
-                )
-            
+                    )
+
             with gr.TabItem("🧐 Deep Research", id=5):
-                research_task_input = gr.Textbox(label="Research Task", lines=5, value="Compose a report on the use of Reinforcement Learning for training Large Language Models, encompassing its origins, current advancements, and future prospects, substantiated with examples of relevant models and techniques. The report should reflect original insights and analysis, moving beyond mere summarization of existing literature.")
+                research_task_input = gr.Textbox(label="Research Task", lines=5,
+                                                 value="Compose a report on the use of Reinforcement Learning for training Large Language Models, encompassing its origins, current advancements, and future prospects, substantiated with examples of relevant models and techniques. The report should reflect original insights and analysis, moving beyond mere summarization of existing literature.")
                 with gr.Row():
-                    max_search_iteration_input = gr.Number(label="Max Search Iteration", value=3, precision=0) # precision=0 确保是整数
-                    max_query_per_iter_input = gr.Number(label="Max Query per Iteration", value=1, precision=0) # precision=0 确保是整数
+                    max_search_iteration_input = gr.Number(label="Max Search Iteration", value=3,
+                                                           precision=0)  # precision=0 确保是整数
+                    max_query_per_iter_input = gr.Number(label="Max Query per Iteration", value=1,
+                                                         precision=0)  # precision=0 确保是整数
                 with gr.Row():
                     research_button = gr.Button("▶️ Run Deep Research", variant="primary", scale=2)
                     stop_research_button = gr.Button("⏹️ Stop", variant="stop", scale=1)
                 markdown_output_display = gr.Markdown(label="Research Report")
                 markdown_download = gr.File(label="Download Research Report")
 
-
             with gr.TabItem("📊 Results", id=6):
                 with gr.Group():
-
                     recording_display = gr.Video(label="Latest Recording")
 
                     gr.Markdown("### Results")
@@ -898,31 +908,34 @@ def create_ui(config, theme_name="Ocean"):
                 # Run button click handler
                 run_button.click(
                     fn=run_with_stream,
-                        inputs=[
-                            agent_type, llm_provider, llm_model_name, llm_temperature, llm_base_url, llm_api_key,
-                            use_own_browser, keep_browser_open, headless, disable_security, window_w, window_h,
-                            save_recording_path, save_agent_history_path, save_trace_path,  # Include the new path
-                            enable_recording, task, add_infos, max_steps, use_vision, max_actions_per_step, tool_calling_method
-                        ],
+                    inputs=[
+                        agent_type, llm_provider, llm_model_name, llm_temperature, llm_base_url, llm_api_key,
+                        use_own_browser, keep_browser_open, headless, disable_security, window_w, window_h,
+                        save_recording_path, save_agent_history_path, save_trace_path,  # Include the new path
+                        enable_recording, task, add_infos, max_steps, use_vision, max_actions_per_step,
+                        tool_calling_method
+                    ],
                     outputs=[
-                        browser_view,           # Browser view
-                        final_result_output,    # Final result
-                        errors_output,          # Errors
-                        model_actions_output,   # Model actions
+                        browser_view,  # Browser view
+                        final_result_output,  # Final result
+                        errors_output,  # Errors
+                        model_actions_output,  # Model actions
                         model_thoughts_output,  # Model thoughts
-                        recording_display,      # Latest recording
-                        trace_file,             # Trace file
-                        agent_history_file,     # Agent history file
-                        stop_button,            # Stop button
-                        run_button              # Run button
+                        recording_display,  # Latest recording
+                        trace_file,  # Trace file
+                        agent_history_file,  # Agent history file
+                        stop_button,  # Stop button
+                        run_button  # Run button
                     ],
                 )
-                
+
                 # Run Deep Research
                 research_button.click(
-                        fn=run_deep_search,
-                        inputs=[research_task_input, max_search_iteration_input, max_query_per_iter_input, llm_provider, llm_model_name, llm_temperature, llm_base_url, llm_api_key, use_vision, use_own_browser, headless],
-                        outputs=[markdown_output_display, markdown_download, stop_research_button, research_button]
+                    fn=run_deep_search,
+                    inputs=[research_task_input, max_search_iteration_input, max_query_per_iter_input, llm_provider,
+                            llm_model_name, llm_temperature, llm_base_url, llm_api_key, use_vision, use_own_browser,
+                            headless],
+                    outputs=[markdown_output_display, markdown_download, stop_research_button, research_button]
                 )
                 # Bind the stop button click event after errors_output is defined
                 stop_research_button.click(
@@ -937,7 +950,8 @@ def create_ui(config, theme_name="Ocean"):
                         return []
 
                     # Get all video files
-                    recordings = glob.glob(os.path.join(save_recording_path, "*.[mM][pP]4")) + glob.glob(os.path.join(save_recording_path, "*.[wW][eE][bB][mM]"))
+                    recordings = glob.glob(os.path.join(save_recording_path, "*.[mM][pP]4")) + glob.glob(
+                        os.path.join(save_recording_path, "*.[wW][eE][bB][mM]"))
 
                     # Sort recordings by creation time (oldest first)
                     recordings.sort(key=os.path.getctime)
@@ -964,7 +978,7 @@ def create_ui(config, theme_name="Ocean"):
                     inputs=save_recording_path,
                     outputs=recordings_gallery
                 )
-            
+
             with gr.TabItem("📁 Configuration", id=8):
                 with gr.Group():
                     config_file_input = gr.File(
@@ -1002,10 +1016,9 @@ def create_ui(config, theme_name="Ocean"):
                         use_own_browser, keep_browser_open, headless, disable_security,
                         enable_recording, window_w, window_h, save_recording_path, save_trace_path,
                         save_agent_history_path, task,
-                    ],  
+                    ],
                     outputs=[config_status]
                 )
-
 
         # Attach the callback to the LLM provider dropdown
         llm_provider.change(
@@ -1026,6 +1039,7 @@ def create_ui(config, theme_name="Ocean"):
 
     return demo
 
+
 def main():
     parser = argparse.ArgumentParser(description="Gradio UI for Browser Agent")
     parser.add_argument("--ip", type=str, default="127.0.0.1", help="IP address to bind to")
@@ -1038,6 +1052,7 @@ def main():
 
     demo = create_ui(config_dict, theme_name=args.theme)
     demo.launch(server_name=args.ip, server_port=args.port)
+
 
 if __name__ == '__main__':
     main()

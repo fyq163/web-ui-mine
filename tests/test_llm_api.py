@@ -2,15 +2,22 @@ import os
 import pdb
 from dataclasses import dataclass
 
+import httpx
 from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage, SystemMessage
+from langchain_google_genai import (
+    ChatGoogleGenerativeAI,
+    HarmBlockThreshold,
+    HarmCategory,
+)
 from langchain_ollama import ChatOllama
 
 load_dotenv()
-
+image_path = "../assets/examples/test.png"
 import sys
 
-sys.path.append(".")
+sys.path.append("../")
+
 
 @dataclass
 class LLMConfig:
@@ -19,6 +26,7 @@ class LLMConfig:
     temperature: float = 0.8
     base_url: str = None
     api_key: str = None
+
 
 def create_message_content(text, image_path=None):
     content = [{"type": "text", "text": text}]
@@ -33,6 +41,7 @@ def create_message_content(text, image_path=None):
 
     return content
 
+
 def get_env_value(key, provider):
     env_mappings = {
         "openai": {"api_key": "OPENAI_API_KEY", "base_url": "OPENAI_ENDPOINT"},
@@ -45,6 +54,7 @@ def get_env_value(key, provider):
     if provider in env_mappings and key in env_mappings[provider]:
         return os.getenv(env_mappings[provider][key], "")
     return ""
+
 
 def test_llm(config, query, image_path=None, system_message=None):
     from src.utils import utils
@@ -88,38 +98,75 @@ def test_llm(config, query, image_path=None, system_message=None):
         print(llm.model_name)
         pdb.set_trace()
 
+
 def test_openai_model():
     config = LLMConfig(provider="openai", model_name="gpt-4o")
-    test_llm(config, "Describe this image", "assets/examples/test.png")
+    test_llm(config, "Describe this image", image_path)
+
 
 def test_google_model():
     # Enable your API key first if you haven't: https://ai.google.dev/palm_docs/oauth_quickstart
     config = LLMConfig(provider="google", model_name="gemini-2.0-flash-exp")
-    test_llm(config, "Describe this image", "assets/examples/test.png")
+    test_llm(config, "Describe this image", image_path)
+
 
 def test_azure_openai_model():
     config = LLMConfig(provider="azure_openai", model_name="gpt-4o")
-    test_llm(config, "Describe this image", "assets/examples/test.png")
+    test_llm(config, "Describe this image", image_path)
+
 
 def test_deepseek_model():
     config = LLMConfig(provider="deepseek", model_name="deepseek-chat")
     test_llm(config, "Who are you?")
 
+
 def test_deepseek_r1_model():
     config = LLMConfig(provider="deepseek", model_name="deepseek-reasoner")
     test_llm(config, "Which is greater, 9.11 or 9.8?", system_message="You are a helpful AI assistant.")
+
 
 def test_ollama_model():
     config = LLMConfig(provider="ollama", model_name="qwen2.5:7b")
     test_llm(config, "Sing a ballad of LangChain.")
 
+
 def test_deepseek_r1_ollama_model():
     config = LLMConfig(provider="ollama", model_name="deepseek-r1:14b")
     test_llm(config, "How many 'r's are in the word 'strawberry'?")
 
+
 def test_mistral_model():
     config = LLMConfig(provider="mistral", model_name="pixtral-large-latest")
-    test_llm(config, "Describe this image", "assets/examples/test.png")
+    test_llm(config, "Describe this image", image_path)
+
+
+def test_with_proxy(query="Describe this image",system_message=None):
+    # proxy_url = "http://127.0.0.1:7890"
+    # proxy_transport = httpx.HTTPTransport(proxy=proxy_url)
+    client = httpx.Client(
+        # mounts={"http://": proxy_transport}
+    )
+    llm = ChatGoogleGenerativeAI(
+        model="gemini-2.0-flash-exp",
+        temperature=0.0,
+        google_api_key=os.getenv("GOOGLE_API_KEY"),
+        http_client=client, safety_settings={
+        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+    },
+    )
+    ai_msg = llm.invoke(query)
+    print(ai_msg.content)
+    messages = []
+    if system_message:
+        messages.append(SystemMessage(content=create_message_content(system_message)))
+    messages.append(HumanMessage(content=create_message_content(query, image_path)))
+    ai_msg = llm.invoke(messages)
+
+    # Handle different response types
+    if hasattr(ai_msg, "reasoning_content"):
+        print(ai_msg.reasoning_content)
+    print(ai_msg.content)
+
 
 if __name__ == "__main__":
     # test_openai_model()
@@ -127,6 +174,10 @@ if __name__ == "__main__":
     # test_azure_openai_model()
     #test_deepseek_model()
     # test_ollama_model()
-    test_deepseek_r1_model()
+    # test_deepseek_r1_model()
     # test_deepseek_r1_ollama_model()
     # test_mistral_model()
+    test_with_proxy()
+
+
+
