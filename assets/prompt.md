@@ -14,7 +14,7 @@
 - hong kong permanent resident only, if you see this, just close page
 - cantonese is a must or Korean
 - 职位技能需求包含 Java、C# 或 Fortran
-- 4 and more years of experience, disregard senior roles
+- 4 and more years of experience, disregard senior roles， senior 岗位不要
 - close page if "intern", only full time job
 
 ## Websites
