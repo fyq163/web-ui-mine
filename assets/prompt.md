@@ -17,7 +17,8 @@
 - close page if "intern", only full time job
 
 ## Websites
-### https://hk.jobsdb.com/
+### jobsdb
+#### url: https://hk.jobsdb.com/
 #### Steps
 1. 首先，请检查右上角是否显示您的名字"Sebastian"，如果显示，说明已经登录，可以直接开始搜索工作。
 2. 如果没有登录，请点击顶部右侧的‘Sign in’，输入账户信息并完成验证。
@@ -34,7 +35,8 @@
 - search_button: #seek
 - hint: 
 
-### www.linkedin.com/jobs/collections/financial-services
+### LinkedIn
+#### url: www.linkedin.com/jobs/collections/financial-services
 #### Steps
 1. you are already logged in, and already in the job listing page, so your task is to look and save jobs
 2. - try to press "show all","see more" or "see all" to load more jobs
@@ -42,7 +44,8 @@
 - for this website, just scroll down and look for jobs and just click save button
 - this website use javascript to load more jobs, so you need to scroll down and click job title at left column to load more jobs
 
-### https://www.efinancialcareers.hk/
+### efinancialcareers
+#### url: https://www.efinancialcareers.hk/
 #### Hint
 - press sing in
 
