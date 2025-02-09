@@ -5,13 +5,13 @@
           "技能要求包含 Python、MySQL、数据、Azure 或 AI",
           "requires no more than 3 years experiences, 3+ and more just disregard",
           "job location Hong Kong",
-          "最好要求至少是毕业生 graduate"
+          "最好要求至少是毕业生 graduate, or trainee"
         ],
         "disregard_jobs": [
           "hong kong permanent resident only",
           "cantonese is a must or Korean",
           "职位技能需求包含 Java、C# 或 Fortran",
-          "4 and more years of experience"
+          "4 and more years of experience, disregard senior roles"
         ]},
   "websites": [
     {
@@ -38,7 +38,9 @@
       "hint": ["for this website, just scroll down and look for jobs and just click save button",
       "this website use javascript to load more jobs, so you need to scroll down and click job title at left column to load more jobs"]
     },{
-      "url": "https://hk.jobsdb.com/",
-    }
+      "url": "https://www.efinancialcareers.hk/",
+      "hint": "press sing in",
+        "account_info": {
+            "username": "fan.yuqi@icloud.com","password":"Jf@163126110"}}
   ]
 }
