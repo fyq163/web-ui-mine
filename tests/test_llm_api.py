@@ -106,7 +106,7 @@ def test_openai_model():
 
 def test_google_model():
     # Enable your API key first if you haven't: https://ai.google.dev/palm_docs/oauth_quickstart
-    config = LLMConfig(provider="google", model_name="gemini-2.0-flash-exp")
+    config = LLMConfig(provider="gemini", model_name="gemini-2.0-flash-exp")
     test_llm(config, "Describe this image", image_path)
 
 
@@ -169,7 +169,7 @@ def test_with_proxy(query="Describe this image",system_message=None):
 
 
 if __name__ == "__main__":
-    # test_openai_model()
+    test_openai_model()
     # test_google_model()
     # test_azure_openai_model()
     #test_deepseek_model()
@@ -177,7 +177,7 @@ if __name__ == "__main__":
     # test_deepseek_r1_model()
     # test_deepseek_r1_ollama_model()
     # test_mistral_model()
-    test_with_proxy()
+    # test_with_proxy()
 
 
 
