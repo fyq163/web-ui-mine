@@ -5,14 +5,14 @@ import gradio as gr
 import json
 
 # Define the path to the JSON file
-json_file_path = os.path.abspath("./assets/prompt.json")
+json_file_path = os.path.abspath("./assets/prompt.md")
 with open(json_file_path, 'r', encoding='utf-8') as file:
-    data = json.load(file)
+    prompt = file.read()
 # Now `data` contains the JSON data from the file
 
-tasks = str(data)
+tasks = str(prompt)
 
-
+print(tasks)
 def default_config():
     """Prepare the default configuration"""
     return {
