@@ -2,45 +2,17 @@ import os
 import pickle
 import uuid
 import gradio as gr
+import json
 
-tasks="""
-{
-  {
-  "goal": "在多个招聘网站上搜索与 data,financial data 相关的工作，并记录下合适的职位。如果看到‘save’或‘star’按钮，请收藏该职位。如果检测到与上一步相同的工作，则自动滚动页面继续浏览。",
-  
-  "websites": [
-    {
-      "url": "https://hk.jobsdb.com/",
-      "steps": [
-        "首先，请检查右上角是否显示您的名字‘Sebastian’，如果显示，说明已经登录，可以直接开始搜索工作。",
-        "如果没有登录，请点击顶部右侧的‘Sign in’，输入账户信息并完成验证。",
-        "在页面的搜索框（seek）中输入‘Python’，点击搜索按钮获取相关职位。如果看到Recommended for you，请直接scroll down",
-        "滚动页面查看职位信息，如果与上一职位相同，请执行‘scroll down’操作。或者执行go back 操作",
-        "点击每个职位以查看详细信息，记录下所有合适的职位。如果看到‘save’或‘star’按钮，请点击收藏该职位。THEN, 点击返回按钮返回搜索结果页面，go back action。"
-        "继续滚动页面并查看新的职位，直到搜索结果页面结束。If you see any words appear in <disregard_jobs>, please ignore the job."
-      ],
-      "define_good_job": {
-        "criteria": [
-          "技能要求包含 Python、MySQL、数据、Azure 或 AI",
-          "requires no more than 3 years experiences, 3+ and more just disregard",
-          "job location Hong Kong",
-          "最好要求至少是毕业生", graduate
-        ],
-        "disregard_jobs": [
-          "hong kong permanent resident only",
-          "cantonese is a must or Korean",
-          "职位技能需求包含 Java、C# 或 Fortran"
-          "4 and more years of experience"
-        ]
-      },
-      "account_info": {
-        "username": "seb.fan@outlook.com.au"
-      },
-      "job_search": {,
-        "job_keywords": "data",
-        "search_button": "#seek"}}]}
+# Define the path to the JSON file
+json_file_path = os.path.abspath("./assets/prompt.json")
+with open(json_file_path, 'r', encoding='utf-8') as file:
+    data = json.load(file)
+# Now `data` contains the JSON data from the file
 
-"""
+tasks = str(data)
+
+
 def default_config():
     """Prepare the default configuration"""
     return {
