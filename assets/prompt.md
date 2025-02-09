@@ -7,7 +7,7 @@
 - 技能要求包含 Python、MySQL、数据、Azure 或 AI
 - requires no more than 3 years experiences, "3+" and more just disregard
 - job location Hong Kong, 
-- 最好要求至少是毕业生 graduate, or trainee
+- 最好要求是毕业生 graduate, or trainee
 - location in Hong Kong or Shenzhen("深圳")
 
 ### Keywords Blacklist (dislike, not good)
