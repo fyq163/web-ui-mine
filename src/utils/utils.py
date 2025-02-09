@@ -3,11 +3,13 @@ import os
 import time
 from pathlib import Path
 from typing import Dict, Optional
+
+import httpx
 import requests
 
 from langchain_anthropic import ChatAnthropic
 from langchain_mistralai import ChatMistralAI
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_google_genai import ChatGoogleGenerativeAI, HarmCategory, HarmBlockThreshold
 from langchain_ollama import ChatOllama
 from langchain_openai import AzureChatOpenAI, ChatOpenAI
 import gradio as gr
@@ -19,7 +21,7 @@ PROVIDER_DISPLAY_NAMES = {
     "azure_openai": "Azure OpenAI",
     "anthropic": "Anthropic",
     "deepseek": "DeepSeek",
-    "google": "Google"
+    "gemini": "Gemini"
 }
 
 def get_llm_model(provider: str, **kwargs):
@@ -29,8 +31,11 @@ def get_llm_model(provider: str, **kwargs):
     :param kwargs:
     :return:
     """
+    client = httpx.Client(
+        # mounts={"http://": proxy_transport}
+    )
     if provider not in ["ollama"]:
-        env_var = f"{provider.upper()}_API_KEY"
+        env_var = "GOOGLE_API_KEY" if provider == "gemini" else f"{provider.upper()}_API_KEY"
         api_key = kwargs.get("api_key", "") or os.getenv(env_var, "")
         if not api_key:
             handle_api_key_error(provider, env_var)
@@ -75,6 +80,7 @@ def get_llm_model(provider: str, **kwargs):
             temperature=kwargs.get("temperature", 0.0),
             base_url=base_url,
             api_key=api_key,
+            http_client=client
         )
     elif provider == "deepseek":
         if not kwargs.get("base_url", ""):
@@ -96,11 +102,14 @@ def get_llm_model(provider: str, **kwargs):
                 base_url=base_url,
                 api_key=api_key,
             )
-    elif provider == "google":
+    elif provider == "gemini":
         return ChatGoogleGenerativeAI(
             model=kwargs.get("model_name", "gemini-2.0-flash-exp"),
             temperature=kwargs.get("temperature", 0.0),
             google_api_key=api_key,
+            http_client=client, safety_settings={
+                HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+            },
         )
     elif provider == "ollama":
         if not kwargs.get("base_url", ""):
@@ -144,8 +153,7 @@ model_names = {
     "anthropic": ["claude-3-5-sonnet-20240620", "claude-3-opus-20240229"],
     "openai": ["gpt-4o", "gpt-4", "gpt-3.5-turbo", "o3-mini"],
     "deepseek": ["deepseek-chat", "deepseek-reasoner"],
-    "google": ["gemini-2.0-flash-exp", "gemini-2.0-flash-thinking-exp", "gemini-1.5-flash-latest", "gemini-1.5-flash-8b-latest", "gemini-2.0-flash-thinking-exp-01-21","gemini-2.0-pro-exp-02-05"],
-    # TODO : real time model name pull
+    "gemini": ["gemini-2.0-flash-exp", "gemini-2.0-flash-thinking-exp", "gemini-1.5-flash-latest", "gemini-1.5-flash-8b-latest", "gemini-2.0-flash-thinking-exp-01-21","gemini-2.0-pro-exp-02-05"],
     "ollama": ["qwen2.5:7b", "llama2:7b", "deepseek-r1:14b", "deepseek-r1:32b"],
     "azure_openai": ["gpt-4o", "gpt-4", "gpt-3.5-turbo"],
     "mistral": ["pixtral-large-latest", "mistral-large-latest", "mistral-small-latest", "ministral-8b-latest"]
