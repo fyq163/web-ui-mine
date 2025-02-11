@@ -31,6 +31,8 @@ def get_llm_model(provider: str, **kwargs):
     :param kwargs:
     :return:
     """
+    # proxy_url = "http://127.0.0.1:7890"
+    # proxy_transport = httpx.HTTPTransport(proxy=proxy_url)
     client = httpx.Client(
         # mounts={"http://": proxy_transport}
     )
