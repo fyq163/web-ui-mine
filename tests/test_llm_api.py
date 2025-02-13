@@ -49,6 +49,7 @@ def get_env_value(key, provider):
         "google": {"api_key": "GOOGLE_API_KEY"},
         "deepseek": {"api_key": "DEEPSEEK_API_KEY", "base_url": "DEEPSEEK_ENDPOINT"},
         "mistral": {"api_key": "MISTRAL_API_KEY", "base_url": "MISTRAL_ENDPOINT"},
+        "moonshot":{"api_key": "MOONSHOT_API_KEY", "base_url": "MOONSHOT_ENDPOINT"},
     }
 
     if provider in env_mappings and key in env_mappings[provider]:
