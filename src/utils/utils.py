@@ -31,11 +31,6 @@ def get_llm_model(provider: str, **kwargs):
     :param kwargs:
     :return:
     """
-    # proxy_url = "http://127.0.0.1:7890"
-    # proxy_transport = httpx.HTTPTransport(proxy=proxy_url)
-    client = httpx.Client(
-        # mounts={"http://": proxy_transport}
-    )
     if provider not in ["ollama"]:
         env_var = "GOOGLE_API_KEY" if provider == "gemini" else f"{provider.upper()}_API_KEY"
         api_key = kwargs.get("api_key", "") or os.getenv(env_var, "")
@@ -82,7 +77,7 @@ def get_llm_model(provider: str, **kwargs):
             temperature=kwargs.get("temperature", 0.0),
             base_url=base_url,
             api_key=api_key,
-            http_client=client
+
         )
     elif provider == "deepseek":
         if not kwargs.get("base_url", ""):
@@ -109,9 +104,6 @@ def get_llm_model(provider: str, **kwargs):
             model=kwargs.get("model_name", "gemini-2.0-flash-exp"),
             temperature=kwargs.get("temperature", 0.0),
             google_api_key=api_key,
-            http_client=client, safety_settings={
-                HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
-            },
         )
     elif provider == "ollama":
         if not kwargs.get("base_url", ""):
@@ -152,7 +144,7 @@ def get_llm_model(provider: str, **kwargs):
             temperature=kwargs.get("temperature", 0.0),
             base_url="https://api.moonshot.ai/v1",
             api_key=api_key,
-            http_client=client
+
         )
     # TODO: Add Moonshot provider
     elif provider == "tongyi":
@@ -161,13 +153,10 @@ def get_llm_model(provider: str, **kwargs):
             temperature=kwargs.get("temperature", 0.0),
             base_url="https://api.tongyi.ai/v1",
             api_key=api_key,
-            http_client=client
         )
-    # TODO: Add TongYi qwen provider
     else:
         raise ValueError(f"Unsupported provider: {provider}")
-
-
+    
 # Predefined model names for common providers
 model_names = {
     "anthropic": ["claude-3-5-sonnet-20240620", "claude-3-opus-20240229"],
