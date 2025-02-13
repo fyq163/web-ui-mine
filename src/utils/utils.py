@@ -31,9 +31,6 @@ def get_llm_model(provider: str, **kwargs):
     :param kwargs:
     :return:
     """
-    client = httpx.Client(
-        # mounts={"http://": proxy_transport}
-    )
     if provider not in ["ollama"]:
         env_var = "GOOGLE_API_KEY" if provider == "gemini" else f"{provider.upper()}_API_KEY"
         api_key = kwargs.get("api_key", "") or os.getenv(env_var, "")
@@ -80,7 +77,7 @@ def get_llm_model(provider: str, **kwargs):
             temperature=kwargs.get("temperature", 0.0),
             base_url=base_url,
             api_key=api_key,
-            http_client=client
+
         )
     elif provider == "deepseek":
         if not kwargs.get("base_url", ""):
@@ -107,9 +104,6 @@ def get_llm_model(provider: str, **kwargs):
             model=kwargs.get("model_name", "gemini-2.0-flash-exp"),
             temperature=kwargs.get("temperature", 0.0),
             google_api_key=api_key,
-            http_client=client, safety_settings={
-                HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
-            },
         )
     elif provider == "ollama":
         if not kwargs.get("base_url", ""):
