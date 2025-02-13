@@ -13,7 +13,7 @@ async def test_deep_research():
     
     task = "write a report about DeepSeek-R1, get its pdf"
     llm = utils.get_llm_model(
-        provider="gemini",
+        provider="google",
         model_name="gemini-2.0-flash-thinking-exp-01-21",
         temperature=1.0,
         api_key=os.getenv("GOOGLE_API_KEY", "")

@@ -141,6 +141,16 @@ def test_mistral_model():
     test_llm(config, "Describe this image", image_path)
 
 
+def test_moonshot_model():
+    config = LLMConfig(provider="moonshot", model_name=os.getenv("MOONSHOT_MODEL_NAME"))
+    test_llm(config, "Describe this image", image_path)
+
+
+def test_tongyi_model():
+    config = LLMConfig(provider="tongyi", model_name="tongyi-large-latest")
+    test_llm(config, "Describe this image", image_path)
+    
+
 def test_with_proxy(query="Describe this image",system_message=None):
     # proxy_url = "http://127.0.0.1:7890"
     # proxy_transport = httpx.HTTPTransport(proxy=proxy_url)
