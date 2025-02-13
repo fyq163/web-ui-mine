@@ -11,7 +11,7 @@ from langchain_google_genai import (
     HarmCategory,
 )
 from langchain_ollama import ChatOllama
-
+# noqa: E302
 load_dotenv()
 image_path = "../assets/examples/test.png"
 import sys
@@ -120,11 +120,6 @@ def test_deepseek_model():
     config = LLMConfig(provider="deepseek", model_name="deepseek-chat")
     test_llm(config, "Who are you?")
 
-
-def test_deepseek_model():
-    config = LLMConfig(provider="deepseek", model_name="deepseek-chat")
-    test_llm(config, "Who are you?")
-
 def test_deepseek_r1_model():
     config = LLMConfig(provider="deepseek", model_name="deepseek-reasoner")
     test_llm(config, "Which is greater, 9.11 or 9.8?", system_message="You are a helpful AI assistant.")
@@ -150,7 +145,6 @@ def test_moonshot_model():
 def test_tongyi_model():
     config = LLMConfig(provider="tongyi", model_name="tongyi-large-latest")
     test_llm(config, "Describe this image", image_path)
-
 
 if __name__ == "__main__":
     # test_openai_model()
