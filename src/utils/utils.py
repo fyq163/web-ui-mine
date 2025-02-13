@@ -33,7 +33,7 @@ def get_llm_model(provider: str, **kwargs):
     :return:
     """
     if provider not in ["ollama"]:
-        env_var = "GOOGLE_API_KEY" if provider == "gemini" else f"{provider.upper()}_API_KEY"
+        env_var = "GOOGLE_API_KEY" if provider == "google" else f"{provider.upper()}_API_KEY"
         api_key = kwargs.get("api_key", "") or os.getenv(env_var, "")
         if not api_key:
             handle_api_key_error(provider, env_var)
