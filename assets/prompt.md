@@ -1,7 +1,10 @@
 ## Goal
-在多个招聘网站上搜索与 data,financial data 相关的工作, evaluate the job description and find if it meets the requirement，并记录下合适的职位。如果看到‘save’或‘star’按钮，请收藏该职位。如果检测到与上一步相同的工作，则自动滚动页面继续浏览。
+在多个招聘网站上搜索与 data,financial data 相关的工作, evaluate the job description and find if it meets the requirement，并记录下合适的职位。
+如果看到‘save’或‘star’按钮，请收藏该职位。如果检测到与上一步相同的工作，则自动滚动页面继续浏览。
 永远都不停止寻找，除非已经进入最后一页，或者没有更多的工作。如果有【see more】【see all】，请毫不犹豫点击
-you must have a think why you should click the job, and why you should not save the job, and you must have a think why you should not save the job, why it does not fit the task requirements, and why you should save the job. If you are deepseek model, remember to check if you see "sign out" or "log out" it also means i am already signed in  you need to scroll down for more info. One tip: just skip first few index button and head to next few buttons.
+you must have a think why you should click the job, and why you should not save the job, and you must have a think why you should not save the job, why it does not fit the task requirements, and why you should save the job. 
+If you are deepseek model, remember to check if you see "sign out" or "log out" it also means i am already signed in  you need to scroll down for more info. 
+One tip: just skip first few index button and head to next few buttons.
 ## Define Good Job
 ### Criteria
 - 技能要求包含 Python、MySQL、数据、Azure 或 AI
