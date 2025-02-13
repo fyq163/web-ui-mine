@@ -149,34 +149,6 @@ def test_moonshot_model():
 def test_tongyi_model():
     config = LLMConfig(provider="tongyi", model_name="tongyi-large-latest")
     test_llm(config, "Describe this image", image_path)
-    
-
-def test_with_proxy(query="Describe this image",system_message=None):
-    # proxy_url = "http://127.0.0.1:7890"
-    # proxy_transport = httpx.HTTPTransport(proxy=proxy_url)
-    client = httpx.Client(
-        # mounts={"http://": proxy_transport}
-    )
-    llm = ChatGoogleGenerativeAI(
-        model="gemini-2.0-flash-exp",
-        temperature=0.0,
-        google_api_key=os.getenv("GOOGLE_API_KEY"),
-        http_client=client, safety_settings={
-        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
-    },
-    )
-    ai_msg = llm.invoke(query)
-    print(ai_msg.content)
-    messages = []
-    if system_message:
-        messages.append(SystemMessage(content=create_message_content(system_message)))
-    messages.append(HumanMessage(content=create_message_content(query, image_path)))
-    ai_msg = llm.invoke(messages)
-
-    # Handle different response types
-    if hasattr(ai_msg, "reasoning_content"):
-        print(ai_msg.reasoning_content)
-    print(ai_msg.content)
 
 
 if __name__ == "__main__":
