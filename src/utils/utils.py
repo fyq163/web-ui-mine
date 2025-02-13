@@ -163,6 +163,8 @@ def get_llm_model(provider: str, **kwargs):
             base_url=os.getenv("MOONSHOT_ENDPOINT"),
             api_key=os.getenv("MOONSHOT_API_KEY"),
         )
+    elif provider == "tongyi":
+        ... # TODO: Add Tongyi Qwen provider
     else:
         raise ValueError(f"Unsupported provider: {provider}")
 
