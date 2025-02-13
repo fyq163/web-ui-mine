@@ -21,7 +21,7 @@ PROVIDER_DISPLAY_NAMES = {
     "azure_openai": "Azure OpenAI",
     "anthropic": "Anthropic",
     "deepseek": "DeepSeek",
-    "gemini": "Gemini"
+    "google": "Google"
 }
 
 
