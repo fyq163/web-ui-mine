@@ -121,24 +121,25 @@ def test_deepseek_model():
     test_llm(config, "Who are you?")
 
 
+def test_deepseek_model():
+    config = LLMConfig(provider="deepseek", model_name="deepseek-chat")
+    test_llm(config, "Who are you?")
+
 def test_deepseek_r1_model():
     config = LLMConfig(provider="deepseek", model_name="deepseek-reasoner")
     test_llm(config, "Which is greater, 9.11 or 9.8?", system_message="You are a helpful AI assistant.")
-
 
 def test_ollama_model():
     config = LLMConfig(provider="ollama", model_name="qwen2.5:7b")
     test_llm(config, "Sing a ballad of LangChain.")
 
-
 def test_deepseek_r1_ollama_model():
     config = LLMConfig(provider="ollama", model_name="deepseek-r1:14b")
     test_llm(config, "How many 'r's are in the word 'strawberry'?")
 
-
 def test_mistral_model():
     config = LLMConfig(provider="mistral", model_name="pixtral-large-latest")
-    test_llm(config, "Describe this image", image_path)
+    test_llm(config, "Describe this image", "assets/examples/test.png")
 
 
 def test_moonshot_model():
