@@ -31,7 +31,7 @@ def default_config():
         "headless": False,
         "disable_security": True,
         "enable_recording": True,
-        "window_w": 800,
+        "window_w": 1600,
         "window_h": 1100,
         "save_recording_path": "./tmp/record_videos",
         "save_trace_path": "./tmp/traces",
