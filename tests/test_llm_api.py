@@ -2,7 +2,6 @@ import os
 import pdb
 from dataclasses import dataclass
 
-import httpx
 from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_google_genai import (
@@ -11,13 +10,12 @@ from langchain_google_genai import (
     HarmCategory,
 )
 from langchain_ollama import ChatOllama
-# noqa: E302
+
 load_dotenv()
-image_path = "../assets/examples/test.png"
+
 import sys
 
-sys.path.append("../")
-
+sys.path.append(".")
 
 @dataclass
 class LLMConfig:
@@ -36,11 +34,10 @@ def create_message_content(text, image_path=None):
         image_data = utils.encode_image(image_path)
         content.append({
             "type": "image_url",
-            "image_url": {"url": f"data:image/jpeg;base64,{image_data}"}
+            "image_url": {"url": f"data:image/{image_format};base64,{image_data}"}
         })
 
     return content
-
 
 def get_env_value(key, provider):
     env_mappings = {
@@ -49,13 +46,13 @@ def get_env_value(key, provider):
         "google": {"api_key": "GOOGLE_API_KEY"},
         "deepseek": {"api_key": "DEEPSEEK_API_KEY", "base_url": "DEEPSEEK_ENDPOINT"},
         "mistral": {"api_key": "MISTRAL_API_KEY", "base_url": "MISTRAL_ENDPOINT"},
+        "alibaba": {"api_key": "ALIBABA_API_KEY", "base_url": "ALIBABA_ENDPOINT"},
         "moonshot":{"api_key": "MOONSHOT_API_KEY", "base_url": "MOONSHOT_ENDPOINT"},
     }
 
     if provider in env_mappings and key in env_mappings[provider]:
         return os.getenv(env_mappings[provider][key], "")
     return ""
-
 
 def test_llm(config, query, image_path=None, system_message=None):
     from src.utils import utils
@@ -99,22 +96,18 @@ def test_llm(config, query, image_path=None, system_message=None):
         print(llm.model_name)
         pdb.set_trace()
 
-
 def test_openai_model():
     config = LLMConfig(provider="openai", model_name="gpt-4o")
-    test_llm(config, "Describe this image", image_path)
-
+    test_llm(config, "Describe this image", "assets/examples/test.png")
 
 def test_google_model():
     # Enable your API key first if you haven't: https://ai.google.dev/palm_docs/oauth_quickstart
     config = LLMConfig(provider="google", model_name="gemini-2.0-flash-exp")
-    test_llm(config, "Describe this image", image_path)
-
+    test_llm(config, "Describe this image", "assets/examples/test.png")
 
 def test_azure_openai_model():
-    config = LLMConfig(provider="azure_openai", model_name="gpt-4o-mini")
-    test_llm(config, "Describe this image", image_path)
-
+    config = LLMConfig(provider="azure_openai", model_name="gpt-4o")
+    test_llm(config, "Describe this image", "assets/examples/test.png")
 
 def test_deepseek_model():
     config = LLMConfig(provider="deepseek", model_name="deepseek-chat")
