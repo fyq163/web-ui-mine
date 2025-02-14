@@ -138,13 +138,8 @@ def test_mistral_model():
 
 
 def test_moonshot_model():
-    config = LLMConfig(provider="moonshot", model_name=os.getenv("MOONSHOT_MODEL_NAME"))
-    test_llm(config, "Describe this image", image_path)
-
-
-def test_tongyi_model():
-    config = LLMConfig(provider="tongyi", model_name="tongyi-large-latest")
-    test_llm(config, "Describe this image", image_path)
+    config = LLMConfig(provider="moonshot", model_name="moonshot-v1-32k-vision-preview")
+    test_llm(config, "Describe this image", "assets/examples/test.png")
 
 if __name__ == "__main__":
     # test_openai_model()
