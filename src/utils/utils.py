@@ -147,8 +147,21 @@ def get_llm_model(provider: str, **kwargs):
             base_url=os.getenv("MOONSHOT_ENDPOINT"),
             api_key=os.getenv("MOONSHOT_API_KEY"),
         )
-    elif provider == "tongyi":
-        ... # TODO: Add Tongyi Qwen provider
+    elif provider == 'ark':  # ARK provider use code instead of model name
+        base_url = os.getenv("ARK_ENDPOINT", )
+        return ChatOpenAI(
+            model=kwargs.get("model_name"),
+            temperature=kwargs.get("temperature", 0.0),
+            base_url=base_url,
+            api_key=api_key,
+        )
+    elif provider == "DASHSCOPE":
+        base_url = os.getenv("DASHSCOPE_ENDPOINT")
+        return ChatOpenAI(
+            model=kwargs.get("model_name", "qwen-vl-max-latest"),
+            temperature=kwargs.get("temperature", 0.0),
+            base_url=base_url,
+            api_key=api_key)
     else:
         raise ValueError(f"Unsupported provider: {provider}")
 
