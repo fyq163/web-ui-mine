@@ -9,7 +9,7 @@ import requests
 
 from langchain_anthropic import ChatAnthropic
 from langchain_mistralai import ChatMistralAI
-from langchain_google_genai import ChatGoogleGenerativeAI, HarmCategory, HarmBlockThreshold
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_ollama import ChatOllama
 from langchain_openai import AzureChatOpenAI, ChatOpenAI
 import gradio as gr
@@ -33,7 +33,7 @@ def get_llm_model(provider: str, **kwargs):
     :return:
     """
     if provider not in ["ollama"]:
-        env_var = "GOOGLE_API_KEY" if provider == "google" else f"{provider.upper()}_API_KEY"
+        env_var = f"{provider.upper()}_API_KEY"
         api_key = kwargs.get("api_key", "") or os.getenv(env_var, "")
         if not api_key:
             handle_api_key_error(provider, env_var)
@@ -168,6 +168,7 @@ def get_llm_model(provider: str, **kwargs):
 
 # Predefined model names for common providers
 model_names = {
+    "ark":[""],
     "anthropic": ["claude-3-5-sonnet-20240620", "claude-3-opus-20240229"],
     "openai": ["gpt-4o", "gpt-4", "gpt-3.5-turbo", "o3-mini"],
     "deepseek": ["deepseek-chat", "deepseek-reasoner"],
@@ -177,6 +178,7 @@ model_names = {
     "azure_openai": ["gpt-4o", "gpt-4", "gpt-3.5-turbo"],
     "mistral": ["pixtral-large-latest", "mistral-large-latest", "mistral-small-latest", "ministral-8b-latest"],
     "moonshot": ["moonshot-v1-32k-vision-preview", "moonshot-v1-8k-vision-preview"],
+
 }
 
 
