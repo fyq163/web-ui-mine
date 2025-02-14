@@ -136,6 +136,15 @@ def test_mistral_model():
     config = LLMConfig(provider="mistral", model_name="pixtral-large-latest")
     test_llm(config, "Describe this image", "assets/examples/test.png")
 
+def test_moonshot_by_ark():
+    print("ark: moonshot")
+    config = LLMConfig(provider="ark", model_name="")
+    test_llm(config, "Sing a ballad of LangChain.")
+
+def test_ark_vision():
+    print("ark: vision")
+    config = LLMConfig(provider="ark", model_name="ep-20250214112630-w5lwt")
+    test_llm(config, "Describe this image", "assets/examples/test.png")
 
 def test_moonshot_model():
     config = LLMConfig(provider="moonshot", model_name="moonshot-v1-32k-vision-preview")
