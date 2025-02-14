@@ -30,7 +30,7 @@ class LLMConfig:
 
 def create_message_content(text, image_path=None):
     content = [{"type": "text", "text": text}]
-
+    image_format = "png" if image_path and image_path.endswith(".png") else "jpeg"
     if image_path:
         from src.utils import utils
         image_data = utils.encode_image(image_path)
