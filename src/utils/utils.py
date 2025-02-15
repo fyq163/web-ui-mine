@@ -3,8 +3,6 @@ import os
 import time
 from pathlib import Path
 from typing import Dict, Optional
-
-import httpx
 import requests
 
 from langchain_anthropic import ChatAnthropic
@@ -23,7 +21,6 @@ PROVIDER_DISPLAY_NAMES = {
     "deepseek": "DeepSeek",
     "google": "Google"
 }
-
 
 def get_llm_model(provider: str, **kwargs):
     """
@@ -78,7 +75,6 @@ def get_llm_model(provider: str, **kwargs):
             temperature=kwargs.get("temperature", 0.0),
             base_url=base_url,
             api_key=api_key,
-
         )
     elif provider == "deepseek":
         if not kwargs.get("base_url", ""):
@@ -100,7 +96,7 @@ def get_llm_model(provider: str, **kwargs):
                 base_url=base_url,
                 api_key=api_key,
             )
-    elif provider == "gemini":
+    elif provider == "google":
         return ChatGoogleGenerativeAI(
             model=kwargs.get("model_name", "gemini-2.0-flash-exp"),
             temperature=kwargs.get("temperature", 0.0),
@@ -253,7 +249,7 @@ def get_latest_files(directory: str, file_types: list = ['.webm', '.zip']) -> Di
                     latest_files[file_type] = str(latest)
         except Exception as e:
             print(f"Error getting latest {file_type} file: {e}")
-
+            
     return latest_files
 
 

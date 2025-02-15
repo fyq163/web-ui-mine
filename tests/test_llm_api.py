@@ -4,11 +4,6 @@ from dataclasses import dataclass
 
 from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage, SystemMessage
-from langchain_google_genai import (
-    ChatGoogleGenerativeAI,
-    HarmBlockThreshold,
-    HarmCategory,
-)
 from langchain_ollama import ChatOllama
 
 load_dotenv()
@@ -24,7 +19,6 @@ class LLMConfig:
     temperature: float = 0.8
     base_url: str = None
     api_key: str = None
-
 
 def create_message_content(text, image_path=None):
     content = [{"type": "text", "text": text}]
@@ -100,10 +94,12 @@ def test_openai_model():
     config = LLMConfig(provider="openai", model_name="gpt-4o")
     test_llm(config, "Describe this image", "assets/examples/test.png")
 
+
 def test_google_model():
     # Enable your API key first if you haven't: https://ai.google.dev/palm_docs/oauth_quickstart
     config = LLMConfig(provider="google", model_name="gemini-2.0-flash-exp")
     test_llm(config, "Describe this image", "assets/examples/test.png")
+
 
 def test_azure_openai_model():
     config = LLMConfig(provider="azure_openai", model_name="gpt-4o")
@@ -147,9 +143,9 @@ if __name__ == "__main__":
     # test_openai_model()
     # test_google_model()
     # test_azure_openai_model()
-    # test_deepseek_model()
+    #test_deepseek_model()
     # test_ollama_model()
-    # test_deepseek_r1_model()
+    test_deepseek_r1_model()
     # test_deepseek_r1_ollama_model()
     # test_mistral_model()
     # test_with_proxy()
