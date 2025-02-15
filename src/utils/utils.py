@@ -180,7 +180,7 @@ def get_llm_model(provider: str, **kwargs):
 
 # Predefined model names for common providers
 model_names = {
-    "ark":[""],
+    "ark":["ep-20250214112630-w5lwt"],
     "anthropic": ["claude-3-5-sonnet-20240620", "claude-3-opus-20240229"],
     "openai": ["gpt-4o", "gpt-4", "gpt-3.5-turbo", "o3-mini"],
     "deepseek": ["deepseek-chat", "deepseek-reasoner"],
