@@ -30,7 +30,6 @@ def create_message_content(text, image_path=None):
             "type": "image_url",
             "image_url": {"url": f"data:image/{image_format};base64,{image_data}"}
         })
-
     return content
 
 def get_env_value(key, provider):
@@ -125,6 +124,10 @@ def test_mistral_model():
     config = LLMConfig(provider="mistral", model_name="pixtral-large-latest")
     test_llm(config, "Describe this image", "assets/examples/test.png")
 
+def test_moonshot_model():
+    config = LLMConfig(provider="moonshot", model_name="moonshot-v1-32k-vision-preview")
+    test_llm(config, "Describe this image", "assets/examples/test.png")
+
 def test_moonshot_by_ark():
     print("ark: moonshot")
     config = LLMConfig(provider="ark", model_name="")
@@ -133,10 +136,6 @@ def test_moonshot_by_ark():
 def test_ark_vision():
     print("ark: vision")
     config = LLMConfig(provider="ark", model_name="ep-20250214112630-w5lwt")
-    test_llm(config, "Describe this image", "assets/examples/test.png")
-
-def test_moonshot_model():
-    config = LLMConfig(provider="moonshot", model_name="moonshot-v1-32k-vision-preview")
     test_llm(config, "Describe this image", "assets/examples/test.png")
 
 if __name__ == "__main__":
