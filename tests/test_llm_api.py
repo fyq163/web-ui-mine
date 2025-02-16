@@ -12,6 +12,7 @@ import sys
 
 sys.path.append(".")
 
+
 @dataclass
 class LLMConfig:
     provider: str
@@ -19,6 +20,7 @@ class LLMConfig:
     temperature: float = 0.8
     base_url: str = None
     api_key: str = None
+
 
 def create_message_content(text, image_path=None):
     content = [{"type": "text", "text": text}]
@@ -32,6 +34,7 @@ def create_message_content(text, image_path=None):
         })
     return content
 
+
 def get_env_value(key, provider):
     env_mappings = {
         "openai": {"api_key": "OPENAI_API_KEY", "base_url": "OPENAI_ENDPOINT"},
@@ -40,12 +43,13 @@ def get_env_value(key, provider):
         "deepseek": {"api_key": "DEEPSEEK_API_KEY", "base_url": "DEEPSEEK_ENDPOINT"},
         "mistral": {"api_key": "MISTRAL_API_KEY", "base_url": "MISTRAL_ENDPOINT"},
         "alibaba": {"api_key": "ALIBABA_API_KEY", "base_url": "ALIBABA_ENDPOINT"},
-        "moonshot":{"api_key": "MOONSHOT_API_KEY", "base_url": "MOONSHOT_ENDPOINT"},
+        "moonshot": {"api_key": "MOONSHOT_API_KEY", "base_url": "MOONSHOT_ENDPOINT"},
     }
 
     if provider in env_mappings and key in env_mappings[provider]:
         return os.getenv(env_mappings[provider][key], "")
     return ""
+
 
 def test_llm(config, query, image_path=None, system_message=None):
     from src.utils import utils
@@ -89,6 +93,7 @@ def test_llm(config, query, image_path=None, system_message=None):
         print(llm.model_name)
         pdb.set_trace()
 
+
 def test_openai_model():
     config = LLMConfig(provider="openai", model_name="gpt-4o")
     test_llm(config, "Describe this image", "assets/examples/test.png")
@@ -104,49 +109,57 @@ def test_azure_openai_model():
     config = LLMConfig(provider="azure_openai", model_name="gpt-4o")
     test_llm(config, "Describe this image", "assets/examples/test.png")
 
+
 def test_deepseek_model():
     config = LLMConfig(provider="deepseek", model_name="deepseek-chat")
     test_llm(config, "Who are you?")
+
 
 def test_deepseek_r1_model():
     config = LLMConfig(provider="deepseek", model_name="deepseek-reasoner")
     test_llm(config, "Which is greater, 9.11 or 9.8?", system_message="You are a helpful AI assistant.")
 
+
 def test_ollama_model():
     config = LLMConfig(provider="ollama", model_name="qwen2.5:7b")
     test_llm(config, "Sing a ballad of LangChain.")
+
 
 def test_deepseek_r1_ollama_model():
     config = LLMConfig(provider="ollama", model_name="deepseek-r1:14b")
     test_llm(config, "How many 'r's are in the word 'strawberry'?")
 
+
 def test_mistral_model():
     config = LLMConfig(provider="mistral", model_name="pixtral-large-latest")
     test_llm(config, "Describe this image", "assets/examples/test.png")
 
+
 def test_moonshot_model():
     config = LLMConfig(provider="moonshot", model_name="moonshot-v1-32k-vision-preview")
     test_llm(config, "Describe this image", "assets/examples/test.png")
+
 
 def test_moonshot_by_ark():
     print("ark: moonshot")
     config = LLMConfig(provider="ark", model_name="")
     test_llm(config, "Sing a ballad of LangChain.")
 
+
 def test_ark_vision():
     print("ark: vision")
     config = LLMConfig(provider="ark", model_name="ep-20250214112630-w5lwt")
     test_llm(config, "Describe this image", "assets/examples/test.png")
 
+
 if __name__ == "__main__":
     # test_openai_model()
-    # test_google_model()
+    test_google_model()
     # test_azure_openai_model()
     #test_deepseek_model()
     # test_ollama_model()
-    test_deepseek_r1_model()
+    # test_deepseek_r1_model()
     # test_deepseek_r1_ollama_model()
     # test_mistral_model()
-    # test_with_proxy()
-    test_moonshot_model()
 
+    # test_moonshot_model()
