@@ -22,9 +22,9 @@ from browser_use.browser.context import BrowserContext
 from browser_use.browser.views import BrowserStateHistory
 from browser_use.controller.service import Controller
 from browser_use.telemetry.views import (
-	AgentEndTelemetryEvent,
-	AgentRunTelemetryEvent,
-	AgentStepTelemetryEvent,
+    AgentEndTelemetryEvent,
+    AgentRunTelemetryEvent,
+    AgentStepTelemetryEvent,
 )
 from browser_use.utils import time_execution_async
 from langchain_core.language_models.chat_models import BaseChatModel
@@ -51,8 +51,8 @@ class CustomAgent(Agent):
             controller: Controller = Controller(),
             use_vision: bool = True,
             save_conversation_path: Optional[str] = None,
-            max_failures: int = 10, # Personalisation: larger max failures
-            retry_delay: int = 20, # Personalisation: larger retry delay
+            max_failures: int = 10,  # Personalisation: larger max failures
+            retry_delay: int = 30,  # Personalisation: larger retry delay
             system_prompt_class: Type[SystemPrompt] = SystemPrompt,
             agent_prompt_class: Type[AgentMessagePrompt] = AgentMessagePrompt,
             max_input_tokens: int = 128000,
@@ -108,7 +108,7 @@ class CustomAgent(Agent):
             self.max_input_tokens = 64000
         else:
             self.use_deepseek_r1 = False
-        
+
         # record last actions
         self._last_actions = None
         # record extract content
@@ -209,7 +209,7 @@ class CustomAgent(Agent):
         ai_content = repair_json(ai_content)
         parsed_json = json.loads(ai_content)
         parsed: AgentOutput = self.AgentOutput(**parsed_json)
-        
+
         if parsed is None:
             logger.debug(ai_message.content)
             raise ValueError('Could not parse response.')
@@ -218,7 +218,7 @@ class CustomAgent(Agent):
         parsed.action = parsed.action[: self.max_actions_per_step]
         self._log_response(parsed)
         self.n_steps += 1
-        
+
         return parsed
 
     @time_execution_async("--step")
@@ -256,10 +256,10 @@ class CustomAgent(Agent):
                 # I think something changes, such information should let LLM know
                 for ri in range(len(result), len(actions)):
                     result.append(ActionResult(extracted_content=None,
-                                                include_in_memory=True,
-                                                error=f"{actions[ri].model_dump_json(exclude_unset=True)} is Failed to execute. \
+                                               include_in_memory=True,
+                                               error=f"{actions[ri].model_dump_json(exclude_unset=True)} is Failed to execute. \
                                                     Something new appeared after action {actions[len(result) - 1].model_dump_json(exclude_unset=True)}",
-                                                is_done=False))
+                                               is_done=False))
             if len(actions) == 0:
                 # TODO: fix no action case
                 result = [ActionResult(is_done=True, extracted_content=step_info.memory, include_in_memory=True)]
@@ -305,7 +305,8 @@ class CustomAgent(Agent):
 
             # Execute initial actions if provided
             if self.initial_actions:
-                result = await self.controller.multi_act(self.initial_actions, self.browser_context, check_for_new_elements=False)
+                result = await self.controller.multi_act(self.initial_actions, self.browser_context,
+                                                         check_for_new_elements=False)
                 self._last_result = result
 
             step_info = CustomAgentStepInfo(
@@ -437,17 +438,17 @@ class CustomAgent(Agent):
         )
 
     def create_history_gif(
-        self,
-        output_path: str = 'agent_history.gif',
-        duration: int = 3000,
-        show_goals: bool = True,
-        show_task: bool = True,
-        show_logo: bool = False,
-        font_size: int = 40,
-        title_font_size: int = 56,
-        goal_font_size: int = 44,
-        margin: int = 40,
-        line_spacing: float = 1.5,
+            self,
+            output_path: str = 'agent_history.gif',
+            duration: int = 3000,
+            show_goals: bool = True,
+            show_task: bool = True,
+            show_logo: bool = False,
+            font_size: int = 40,
+            title_font_size: int = 56,
+            goal_font_size: int = 44,
+            margin: int = 40,
+            line_spacing: float = 1.5,
     ) -> None:
         """Create a GIF from the agent's history with overlaid task and goal text."""
         if not self.history.history:
