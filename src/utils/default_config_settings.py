@@ -23,7 +23,7 @@ def default_config():
         "tool_calling_method": "auto",
         "llm_provider": "google",
         "llm_model_name": "gemini-2.0-flash",
-        "llm_temperature": 1.0,
+        "llm_temperature": 0.3,
         "llm_base_url": "",
         "llm_api_key": "",
         "use_own_browser": os.getenv("CHROME_PERSISTENT_SESSION", "false").lower() == "true",

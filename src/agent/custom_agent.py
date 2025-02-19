@@ -51,7 +51,7 @@ class CustomAgent(Agent):
             controller: Controller = Controller(),
             use_vision: bool = True,
             save_conversation_path: Optional[str] = None,
-            max_failures: int = 10,  # Personalisation: larger max failures
+            max_failures: int = 15,  # Personalisation: larger max failures
             retry_delay: int = 30,  # Personalisation: larger retry delay
             system_prompt_class: Type[SystemPrompt] = SystemPrompt,
             agent_prompt_class: Type[AgentMessagePrompt] = AgentMessagePrompt,
