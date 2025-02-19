@@ -24,6 +24,7 @@ Search for jobs related to "data" and "financial data" on various job websites, 
    - If prompted for a subscription or payment, **close the page**.
    - Repeat this process for each site until you’ve reached the end of the job listings.
    - **If you encounter a blank page**, just start from beginning, use go to action to open the page again.
+
 ### Criteria for Good Jobs:
 - **Skills Required:**
   - Best to have **Python**, **MySQL**, **data**, **Azure**, or **AI**.
@@ -39,11 +40,31 @@ Search for jobs related to "data" and "financial data" on various job websites, 
 - "**Hong Kong permanent resident only**"
 - **Cantonese** or **Korean** required
 - **Java**, **C#**, or **Fortran** in skill requirements
-- **3+ years of experience** or senior roles
+- **3+ years of experience** or senior roles or VP, Director, V.I.E program
 - **Internships** (only full-time positions are relevant)
 - **Keywords** Block any company of "TEK System"
+### Decision-Making Flow:
+```graph TD  
+    A[Open Listing] --> B{Meets All Criteria?}  
+    B -->|Yes| C[Click Save/Star]  
+    B -->|No| D[Close Tab Immediately]  
+    C --> E[Verify Against Blacklist]  
+    E -->|Clean| F[Track in System]  
+    E -->|Blacklisted| D  
+```
+
 ### Websites to Search:
-#### **1. JobsDB**  
+
+
+#### **1. LinkedIn**  
+- **URL:** [www.linkedin.com/jobs/collections/financial-services](www.linkedin.com/jobs/collections/financial-services)  
+- **Steps:**  
+  1. You are already logged in. Scroll through the job listings.
+  2. **Click 'show all'** or **'see more'** to load additional listings.
+  3. For each job, check the description against the criteria and **click save** if it meets the requirements.
+
+
+#### **2. JobsDB**  
 - **URL:** [https://hk.jobsdb.com/](https://hk.jobsdb.com/)  
 - **Account Info:**  
   - **Username:** seb.fan@outlook.com.au  
@@ -53,14 +74,7 @@ Search for jobs related to "data" and "financial data" on various job websites, 
   3. **Scroll down** the listings and check each job. If a job meets the criteria, **click the 'save' button**.
   4. If the job is similar to the previous one, **scroll down** or **click 'go back'** to return to the job listing page.
   5. **Repeat the criteria check** for each job listing before saving or closing the page.
-
-#### **2. LinkedIn**  
-- **URL:** [www.linkedin.com/jobs/collections/financial-services](www.linkedin.com/jobs/collections/financial-services)  
-- **Steps:**  
-  1. You are already logged in. Scroll through the job listings.
-  2. **Click 'show all'** or **'see more'** to load additional listings.
-  3. For each job, check the description against the criteria and **click save** if it meets the requirements.
-
+  6. 
 #### **3. eFinancialCareers**  
 - **URL:** [https://www.efinancialcareers.hk/](https://www.efinancialcareers.hk/)  
 - **Account Info:**  
@@ -77,4 +91,29 @@ Search for jobs related to "data" and "financial data" on various job websites, 
   2. If the job meets the criteria, **click the 'save' button**.
   3. Move to the next job.
 
+---
 
+### New Website: **SASAC Website**
+
+#### **5. SASAC**  
+- **URL:** [http://www.sasac.gov.cn/n4470048/n29955503/n31577349/index.html](http://www.sasac.gov.cn/n4470048/n29955503/n31577349/index.html)  
+- **Search Steps:**
+  1. **Go to the page** and **start by scrolling** through the content.
+  2. **Loop over all pages**:
+     - **Check for pagination** or a "next page" option to load additional job listings.
+     - If no next page appears, manually check for any other links that could lead to job descriptions.
+  3. **Click on each job listing** to open more details.
+  4. **Evaluate the job description** according to the criteria mentioned above.
+  5. If the job **meets the criteria**, **click 'save'** or mark it.
+  6. If the job **does not meet the criteria**, close the page immediately and move to the next.
+  7. Continue scrolling and evaluating until you have checked all the pages.
+  8. **Repeat the criteria check** for each job before saving or skipping it.
+  9. **If a page is blank** or fails to load, start with **'todo'**.
+  10. **If the job requires a subscription or payment**, immediately **close the page**.
+  
+---
+
+### Reminder:
+- **Always repeat the criteria check** for each job.
+- If the job does not meet the criteria, **close the page immediately**.
+- **Never stop scrolling or checking** until the last page is reached.
