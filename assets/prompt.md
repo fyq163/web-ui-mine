@@ -3,11 +3,11 @@ Search for jobs related to "data" and "financial data" on various job websites, 
 
 ### Initial Action:
 1. **Go to the website** (first action: open the page):
-   - Start by opening the relevant job website, for example: **[JobsDB](https://hk.jobsdb.com/)** or **[LinkedIn](https://www.linkedin.com/jobs/collections/financial-services)**.
+   - Start by opening the relevant job website
 
 ### Task Instructions:
 1. **Job Evaluation:**
-   - Search job listings for relevant positions in **data** or **financial data**.
+   - Search job listings for relevant positions in **data** or **financial data** or **asset management** or **fund management**..
    - **Evaluate job descriptions** to ensure they meet the following **Criteria** (see below).
    - If the job fits the criteria, **click the 'save' or 'star' button** to save it.
    - **Always repeat the criteria check** for every job listing to ensure it fits the requirements before saving it. **If the job does not meet the criteria, close the page immediately**.
@@ -23,11 +23,11 @@ Search for jobs related to "data" and "financial data" on various job websites, 
    - If you find the same job repeatedly, **scroll down** or **go back** to continue searching.
    - If prompted for a subscription or payment, **close the page**.
    - Repeat this process for each site until you’ve reached the end of the job listings.
-   - **If you encounter a blank page**, start with **'todo'**. If information is extractable from the current page, start with **'current page'**.
+   - **If you encounter a blank page**, just start from beginning, use go to action to open the page again.
 
 ### Criteria for Good Jobs:
 - **Skills Required:**
-  - Must include **Python**, **MySQL**, **data**, **Azure**, or **AI**.
+  - Best to have **Python**, **MySQL**, **data**, **Azure**, or **AI**.
 - **Experience:**
   - Must require **no more than 3 years of experience**. Ignore roles requiring 3+ years or senior positions.
 - **Location:**
@@ -37,12 +37,12 @@ Search for jobs related to "data" and "financial data" on various job websites, 
   - Full-time jobs only (ignore internships).
 
 ### Blacklist (Do not save jobs with these keywords):
-- “**Hong Kong permanent resident only**”
+- "**Hong Kong permanent resident only**"
 - **Cantonese** or **Korean** required
 - **Java**, **C#**, or **Fortran** in skill requirements
 - **3+ years of experience** or senior roles or VP, Director, V.I.E program
 - **Internships** (only full-time positions are relevant)
-- 
+- **Keywords** Block any company of "TEK System"
 ### Decision-Making Flow:
 ```graph TD  
     A[Open Listing] --> B{Meets All Criteria?}  
@@ -52,6 +52,7 @@ Search for jobs related to "data" and "financial data" on various job websites, 
     E -->|Clean| F[Track in System]  
     E -->|Blacklisted| D  
 ```
+
 ### Websites to Search:
 
 
@@ -116,7 +117,3 @@ Search for jobs related to "data" and "financial data" on various job websites, 
 - **Always repeat the criteria check** for each job.
 - If the job does not meet the criteria, **close the page immediately**.
 - **Never stop scrolling or checking** until the last page is reached.
-
----
-
-
