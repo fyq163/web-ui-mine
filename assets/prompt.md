@@ -23,8 +23,7 @@ Search for jobs related to "data" and "financial data" on various job websites, 
    - If you find the same job repeatedly, **scroll down** or **go back** to continue searching.
    - If prompted for a subscription or payment, **close the page**.
    - Repeat this process for each site until you’ve reached the end of the job listings.
-   - **If you encounter a blank page**, start with **'todo'**. If information is extractable from the current page, start with **'current page'**.
-
+   - **If you encounter a blank page**, just start from beginning, use go to action to open the page again.
 ### Criteria for Good Jobs:
 - **Skills Required:**
   - Best to have **Python**, **MySQL**, **data**, **Azure**, or **AI**.
