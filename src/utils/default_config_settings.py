@@ -5,7 +5,7 @@ import gradio as gr
 import json
 
 # Define the path to the JSON file
-json_file_path = os.path.abspath("./assets/prompt.md")
+json_file_path = os.path.abspath("../prompt.md")
 with open(json_file_path, 'r', encoding='utf-8') as file:
     prompt = file.read()
 # Now `data` contains the JSON data from the file
