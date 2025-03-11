@@ -2,10 +2,10 @@ import os
 import pickle
 import uuid
 import gradio as gr
-import json
-
+# Get the directory path
+base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../.."))
 # Define the path to the JSON file
-json_file_path = os.path.abspath("../prompt.md")
+json_file_path = os.path.join(base_dir, "prompt.md")
 with open(json_file_path, 'r', encoding='utf-8') as file:
     prompt = file.read()
 # Now `data` contains the JSON data from the file
