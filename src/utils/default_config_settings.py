@@ -18,7 +18,7 @@ def default_config():
     return {
         "agent_type": "custom",
         "max_steps": 100,
-        "max_actions_per_step": 3,
+        "max_actions_per_step": 10,
         "use_vision": True,
         "tool_calling_method": "auto",
         "llm_provider": "google",
@@ -95,8 +95,8 @@ def update_ui_from_config(config_file):
             return (
                 gr.update(value=loaded_config.get("agent_type", "custom")),
                 gr.update(value=loaded_config.get("max_steps", 100)),
-                gr.update(value=loaded_config.get("max_actions_per_step", 3)),
-                gr.update(value=loaded_config.get("use_vision", False)),
+                gr.update(value=loaded_config.get("max_actions_per_step", 10)),
+                gr.update(value=loaded_config.get("use_vision", True)),
                 gr.update(value=loaded_config.get("tool_calling_method", True)),
                 gr.update(value=loaded_config.get("llm_provider", "openai")),
                 gr.update(value=loaded_config.get("llm_model_name", "gpt-4o")),
