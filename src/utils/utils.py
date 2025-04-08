@@ -166,7 +166,7 @@ def get_llm_model(provider: str, **kwargs):
         return ChatOpenAI(
             model=kwargs.get("model_name"),
             temperature=kwargs.get("temperature", 0.0),
-            base_url=base_url,
+            base_url=base_url,)
     elif provider == "unbound":
         return ChatOpenAI(
             model=kwargs.get("model_name", "gpt-4o-mini"),
